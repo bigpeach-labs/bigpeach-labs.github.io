@@ -6,219 +6,17 @@
 <title>プライバシーポリシー | PinkyPromise</title>
 <meta name="description" content="PinkyPromise のプライバシーポリシー。本アプリは利用者の情報を一切収集せず、すべてのデータは端末内にのみ保存されます。">
 <link rel="canonical" href="https://bigpeach-labs.github.io/pinkypromise/privacy/">
+<link rel="alternate" hreflang="ja" href="https://bigpeach-labs.github.io/pinkypromise/privacy/">
+<link rel="alternate" hreflang="en" href="https://bigpeach-labs.github.io/pinkypromise/privacy/en/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --canvas: #FFF9F0;
-    --paper: #FFFFFF;
-    --ink: #3B2F2C;
-    --ink-secondary: #655650;
-    --ink-faint: #7B6B63;
-    --line: #F0E4D8;
-    --line-soft: #F7EFE6;
-    --rose: #D2325F;
-    --navy: #5A3F52;
-    --ui: "Zen Kaku Gothic New", -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
-    --serif: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
-  }
-
-  * { box-sizing: border-box; }
-
-  body {
-    margin: 0;
-    background: var(--canvas);
-    color: var(--ink);
-    font-family: var(--ui);
-    font-size: 16px;
-    line-height: 1.9;
-    -webkit-text-size-adjust: 100%;
-  }
-
-  .wrap {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 40px 20px 72px;
-  }
-
-  header.masthead {
-    text-align: center;
-    padding: 24px 0 32px;
-    border-bottom: 1px solid var(--line);
-    margin-bottom: 40px;
-  }
-
-  .eyebrow {
-    font-size: 12px;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    color: var(--rose);
-    font-weight: 700;
-    margin: 0 0 14px;
-  }
-
-  h1 {
-    font-family: var(--serif);
-    font-weight: 700;
-    font-size: 28px;
-    line-height: 1.5;
-    margin: 0 0 10px;
-    letter-spacing: 0.04em;
-  }
-
-  .subtitle {
-    margin: 0;
-    color: var(--ink-faint);
-    font-size: 14px;
-  }
-
-  .lede {
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: 20px;
-    padding: 24px 24px 22px;
-    margin: 0 0 40px;
-    font-size: 15px;
-    color: var(--ink-secondary);
-  }
-
-  .lede p { margin: 0; }
-
-  .summary {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    background: var(--line-soft);
-    border-radius: 16px;
-    padding: 18px 20px;
-    margin: 22px 0 0;
-  }
-
-  .summary .mark {
-    flex: none;
-    width: 26px;
-    height: 26px;
-    border-radius: 999px;
-    background: var(--rose);
-    color: #fff;
-    font-size: 15px;
-    line-height: 26px;
-    text-align: center;
-    font-weight: 700;
-  }
-
-  .summary p {
-    margin: 0;
-    font-size: 15px;
-    font-weight: 500;
-    color: var(--ink);
-    line-height: 1.75;
-  }
-
-  section { margin: 0 0 36px; }
-
-  h2 {
-    font-family: var(--serif);
-    font-weight: 700;
-    font-size: 18px;
-    line-height: 1.6;
-    margin: 0 0 12px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--line);
-    letter-spacing: 0.03em;
-  }
-
-  h2 .num {
-    color: var(--rose);
-    margin-right: 10px;
-    font-size: 15px;
-  }
-
-  p { margin: 0 0 14px; }
-  p:last-child { margin-bottom: 0; }
-
-  ul {
-    margin: 0 0 14px;
-    padding-left: 0;
-    list-style: none;
-  }
-
-  li {
-    position: relative;
-    padding-left: 20px;
-    margin-bottom: 8px;
-  }
-
-  li::before {
-    content: "";
-    position: absolute;
-    left: 3px;
-    top: 0.82em;
-    width: 6px;
-    height: 6px;
-    border-radius: 999px;
-    background: var(--line);
-    border: 1px solid #E2D2C2;
-  }
-
-  li:last-child { margin-bottom: 0; }
-
-  .contact {
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: 20px;
-    padding: 22px 24px;
-  }
-
-  .contact .org {
-    font-weight: 700;
-    margin: 0 0 4px;
-  }
-
-  .contact a {
-    color: var(--rose);
-    text-decoration: none;
-    border-bottom: 1px solid rgba(210, 50, 95, 0.3);
-  }
-
-  .contact a:hover { border-bottom-color: var(--rose); }
-
-  footer {
-    margin-top: 48px;
-    padding-top: 24px;
-    border-top: 1px solid var(--line);
-    color: var(--ink-faint);
-    font-size: 13px;
-  }
-
-  footer dl {
-    margin: 0 0 16px;
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 4px 16px;
-  }
-
-  footer dt { font-weight: 500; }
-  footer dd { margin: 0; }
-
-  footer .home {
-    color: var(--navy);
-    text-decoration: none;
-    border-bottom: 1px solid var(--line);
-  }
-
-  footer .home:hover { border-bottom-color: var(--navy); }
-
-  @media (max-width: 480px) {
-    .wrap { padding: 28px 18px 56px; }
-    h1 { font-size: 23px; }
-    body { font-size: 15px; }
-  }
-</style>
+<link rel="stylesheet" href="/assets/legal.css">
 </head>
 <body>
 <div class="wrap">
+
+  <a class="lang-switch" href="/pinkypromise/privacy/en/" hreflang="en"><span>English</span></a>
 
   <header class="masthead">
     <p class="eyebrow">PinkyPromise</p>
@@ -298,7 +96,6 @@
       <dt>最終更新日</dt>
       <dd>2026年8月27日</dd>
     </dl>
-    <a class="home" href="/">BigPeach</a>
   </footer>
 
 </div>
