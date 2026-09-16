@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PinkyPromise</title>
+<meta name="description" content="ゆびきりを証書にして残す、端末内で完結するアプリ。App Store と Google Play で配信中。">
+<meta name="apple-itunes-app" content="app-id=6805258510">
+<link rel="canonical" href="https://bigpeach-labs.github.io/pinkypromise/">
+<link rel="alternate" hreflang="ja" href="https://bigpeach-labs.github.io/pinkypromise/?lang=ja">
+<link rel="alternate" hreflang="en" href="https://bigpeach-labs.github.io/pinkypromise/?lang=en">
+<link rel="alternate" hreflang="x-default" href="https://bigpeach-labs.github.io/pinkypromise/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="PinkyPromise">
+<meta property="og:description" content="ゆびきりを証書にして残す、端末内で完結するアプリ。">
+<meta property="og:url" content="https://bigpeach-labs.github.io/pinkypromise/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --canvas: #FFF9F0;
+    --paper: #FFFFFF;
+    --ink: #3B2F2C;
+    --ink-faint: #7B6B63;
+    --line: #F0E4D8;
+    --rose: #D2325F;
+    --navy: #5A3F52;
+    --ui: "Zen Kaku Gothic New", -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+    --serif: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--canvas);
+    color: var(--ink);
+    font-family: var(--ui);
+    line-height: 1.85;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  .wrap {
+    width: 100%;
+    max-width: 480px;
+    padding: 56px 20px;
+  }
+
+  .lang-switch {
+    display: block;
+    text-align: right;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    color: var(--navy);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    margin-bottom: 28px;
+  }
+
+  .lang-switch span {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2px;
+  }
+
+  .lang-switch:hover span { border-bottom-color: var(--navy); }
+
+  .center { text-align: center; }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: 30px;
+    letter-spacing: 0.08em;
+    margin: 0 0 6px;
+  }
+
+  .tagline {
+    margin: 0 0 36px;
+    color: var(--ink-faint);
+    font-size: 14px;
+  }
+
+  .stores {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 0 0 28px;
+  }
+
+  .store {
+    display: block;
+    padding: 15px 20px;
+    border-radius: 16px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 700;
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+
+  .store:hover { border-color: var(--rose); color: var(--rose); }
+
+  .store .platform {
+    display: block;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .redirecting {
+    margin: 0 0 20px;
+    font-size: 13px;
+    color: var(--ink-faint);
+  }
+
+  .redirecting[hidden] { display: none; }
+
+  .docs {
+    margin: 0;
+    padding: 28px 0 0;
+    list-style: none;
+    border-top: 1px solid var(--line);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px 20px;
+  }
+
+  .docs a {
+    color: var(--ink-faint);
+    font-size: 13px;
+    text-decoration: none;
+  }
+
+  .docs a:hover { color: var(--rose); }
+
+  footer {
+    margin-top: 40px;
+    color: var(--ink-faint);
+    font-size: 13px;
+  }
+
+  footer a { color: var(--ink-faint); }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 40px 18px; }
+    h1 { font-size: 25px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="lang-switch" id="lang-switch" href="?lang=en" hreflang="en"><span>English</span></a>
+
+  <div class="center">
+    <h1>PinkyPromise</h1>
+    <p class="tagline" id="tagline">ゆびきりを証書にして残す、端末内で完結するアプリ。</p>
+
+    <p class="redirecting" id="redirecting" hidden>ストアを開いています…</p>
+
+    <div class="stores">
+      <a class="store" href="https://apps.apple.com/app/id6805258510" id="app-store">
+        <span class="platform">iPhone / iPad</span>
+        <span id="app-store-label">App Store で入手</span>
+      </a>
+      <a class="store" href="https://play.google.com/store/apps/details?id=com.bigpeach.pinkypromise" id="play-store">
+        <span class="platform">Android</span>
+        <span id="play-store-label">Google Play で入手</span>
+      </a>
+    </div>
+
+    <ul class="docs">
+      <li><a href="/pinkypromise/privacy/" id="privacy-link">プライバシーポリシー</a></li>
+      <li><a href="/pinkypromise/terms/" id="terms-link">利用規約</a></li>
+      <li><a href="/">BigPeach</a></li>
+    </ul>
+
+    <footer>
+      <p id="copyright">© 2026 株式会社Mouette</p>
+      <p><a href="mailto:support@mouette.co.jp">support@mouette.co.jp</a></p>
+    </footer>
+  </div>
+
+</div>
+<script>
+  (function () {
+    var COPY = {
+      ja: {
+        title: "PinkyPromise",
+        tagline: "ゆびきりを証書にして残す、端末内で完結するアプリ。",
+        redirecting: "ストアを開いています…",
+        appStore: "App Store で入手",
+        playStore: "Google Play で入手",
+        privacy: "プライバシーポリシー",
+        privacyHref: "/pinkypromise/privacy/",
+        terms: "利用規約",
+        termsHref: "/pinkypromise/terms/",
+        copyright: "© 2026 株式会社Mouette",
+        switchLabel: "English",
+        switchHref: "?lang=en",
+        switchLang: "en",
+        description: "ゆびきりを証書にして残す、端末内で完結するアプリ。App Store と Google Play で配信中。"
+      },
+      en: {
+        title: "PinkyPromise",
+        tagline: "Turn a pinky swear into a certificate. Everything stays on your phone.",
+        redirecting: "Opening the store…",
+        appStore: "Get it on the App Store",
+        playStore: "Get it on Google Play",
+        privacy: "Privacy Policy",
+        privacyHref: "/pinkypromise/privacy/en/",
+        terms: "Terms of Use",
+        termsHref: "/pinkypromise/terms/en/",
+        copyright: "© 2026 Mouette Inc.",
+        switchLabel: "日本語",
+        switchHref: "?lang=ja",
+        switchLang: "ja",
+        description: "Turn a pinky swear into a certificate. Everything stays on your phone. Available on the App Store and Google Play."
+      }
+    };
+
+    function resolveLanguage() {
+      var requested = new URLSearchParams(window.location.search).get("lang");
+      if (requested === "ja" || requested === "en") return requested;
+      var preferred = navigator.languages || [navigator.language || "en"];
+      for (var i = 0; i < preferred.length; i += 1) {
+        if (/^ja\b/i.test(preferred[i])) return "ja";
+        if (/^en\b/i.test(preferred[i])) return "en";
+      }
+      return "en";
+    }
+
+    function setText(id, value) {
+      var node = document.getElementById(id);
+      if (node) node.textContent = value;
+    }
+
+    var lang = resolveLanguage();
+    var copy = COPY[lang];
+
+    document.documentElement.lang = lang;
+    document.title = copy.title;
+    var description = document.querySelector('meta[name="description"]');
+    if (description) description.setAttribute("content", copy.description);
+
+    setText("tagline", copy.tagline);
+    setText("redirecting", copy.redirecting);
+    setText("app-store-label", copy.appStore);
+    setText("play-store-label", copy.playStore);
+    setText("copyright", copy.copyright);
+
+    var privacy = document.getElementById("privacy-link");
+    privacy.textContent = copy.privacy;
+    privacy.href = copy.privacyHref;
+
+    var terms = document.getElementById("terms-link");
+    terms.textContent = copy.terms;
+    terms.href = copy.termsHref;
+
+    var toggle = document.getElementById("lang-switch");
+    toggle.querySelector("span").textContent = copy.switchLabel;
+    toggle.href = copy.switchHref;
+    toggle.hreflang = copy.switchLang;
+
+    var ua = navigator.userAgent || "";
+    var isAndroid = /Android/i.test(ua);
+    var isIos = /iPhone|iPad|iPod/i.test(ua)
+      || (/Macintosh/i.test(ua) && navigator.maxTouchPoints > 1);
+    if (!isAndroid && !isIos) return;
+
+    var target = document.getElementById(isAndroid ? "play-store" : "app-store").href;
+    document.getElementById("redirecting").hidden = false;
+    window.setTimeout(function () {
+      window.location.replace(target);
+    }, 400);
+  })();
+</script>
+</body>
+</html>
