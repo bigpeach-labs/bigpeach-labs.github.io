@@ -6,6 +6,10 @@
 <title>PinkyPromise</title>
 <meta name="description" content="ゆびきりを証書にして残す、端末内で完結するアプリ。App Store と Google Play で配信中。">
 <meta name="apple-itunes-app" content="app-id=6805258510">
+<link rel="canonical" href="https://bigpeach-labs.github.io/pinkypromise/">
+<link rel="alternate" hreflang="ja" href="https://bigpeach-labs.github.io/pinkypromise/?lang=ja">
+<link rel="alternate" hreflang="en" href="https://bigpeach-labs.github.io/pinkypromise/?lang=en">
+<link rel="alternate" hreflang="x-default" href="https://bigpeach-labs.github.io/pinkypromise/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="PinkyPromise">
 <meta property="og:description" content="ゆびきりを証書にして残す、端末内で完結するアプリ。">
@@ -45,8 +49,27 @@
     width: 100%;
     max-width: 480px;
     padding: 56px 20px;
-    text-align: center;
   }
+
+  .lang-switch {
+    display: block;
+    text-align: right;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    color: var(--navy);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    margin-bottom: 28px;
+  }
+
+  .lang-switch span {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2px;
+  }
+
+  .lang-switch:hover span { border-bottom-color: var(--navy); }
+
+  .center { text-align: center; }
 
   h1 {
     font-family: var(--serif);
@@ -136,36 +159,118 @@
 <body>
 <div class="wrap">
 
-  <h1>PinkyPromise</h1>
-  <p class="tagline">ゆびきりを証書にして残す、端末内で完結するアプリ。</p>
+  <a class="lang-switch" id="lang-switch" href="?lang=en" hreflang="en"><span>English</span></a>
 
-  <p class="redirecting" id="redirecting" hidden>ストアを開いています…</p>
+  <div class="center">
+    <h1>PinkyPromise</h1>
+    <p class="tagline" id="tagline">ゆびきりを証書にして残す、端末内で完結するアプリ。</p>
 
-  <div class="stores">
-    <a class="store" href="https://apps.apple.com/app/id6805258510" id="app-store">
-      <span class="platform">iPhone / iPad</span>
-      App Store で入手
-    </a>
-    <a class="store" href="https://play.google.com/store/apps/details?id=com.bigpeach.pinkypromise" id="play-store">
-      <span class="platform">Android</span>
-      Google Play で入手
-    </a>
+    <p class="redirecting" id="redirecting" hidden>ストアを開いています…</p>
+
+    <div class="stores">
+      <a class="store" href="https://apps.apple.com/app/id6805258510" id="app-store">
+        <span class="platform">iPhone / iPad</span>
+        <span id="app-store-label">App Store で入手</span>
+      </a>
+      <a class="store" href="https://play.google.com/store/apps/details?id=com.bigpeach.pinkypromise" id="play-store">
+        <span class="platform">Android</span>
+        <span id="play-store-label">Google Play で入手</span>
+      </a>
+    </div>
+
+    <ul class="docs">
+      <li><a href="/pinkypromise/privacy/" id="privacy-link">プライバシーポリシー</a></li>
+      <li><a href="/pinkypromise/terms/" id="terms-link">利用規約</a></li>
+      <li><a href="/">BigPeach</a></li>
+    </ul>
+
+    <footer>
+      <p id="copyright">© 2026 株式会社Mouette</p>
+      <p><a href="mailto:support@mouette.co.jp">support@mouette.co.jp</a></p>
+    </footer>
   </div>
-
-  <ul class="docs">
-    <li><a href="/pinkypromise/privacy/">プライバシーポリシー</a></li>
-    <li><a href="/pinkypromise/terms/">利用規約</a></li>
-    <li><a href="/">BigPeach</a></li>
-  </ul>
-
-  <footer>
-    <p>© 2026 株式会社Mouette<br>
-    <a href="mailto:support@mouette.co.jp">support@mouette.co.jp</a></p>
-  </footer>
 
 </div>
 <script>
   (function () {
+    var COPY = {
+      ja: {
+        title: "PinkyPromise",
+        tagline: "ゆびきりを証書にして残す、端末内で完結するアプリ。",
+        redirecting: "ストアを開いています…",
+        appStore: "App Store で入手",
+        playStore: "Google Play で入手",
+        privacy: "プライバシーポリシー",
+        privacyHref: "/pinkypromise/privacy/",
+        terms: "利用規約",
+        termsHref: "/pinkypromise/terms/",
+        copyright: "© 2026 株式会社Mouette",
+        switchLabel: "English",
+        switchHref: "?lang=en",
+        switchLang: "en",
+        description: "ゆびきりを証書にして残す、端末内で完結するアプリ。App Store と Google Play で配信中。"
+      },
+      en: {
+        title: "PinkyPromise",
+        tagline: "Turn a pinky swear into a certificate. Everything stays on your phone.",
+        redirecting: "Opening the store…",
+        appStore: "Get it on the App Store",
+        playStore: "Get it on Google Play",
+        privacy: "Privacy Policy",
+        privacyHref: "/pinkypromise/privacy/en/",
+        terms: "Terms of Use",
+        termsHref: "/pinkypromise/terms/en/",
+        copyright: "© 2026 Mouette Inc.",
+        switchLabel: "日本語",
+        switchHref: "?lang=ja",
+        switchLang: "ja",
+        description: "Turn a pinky swear into a certificate. Everything stays on your phone. Available on the App Store and Google Play."
+      }
+    };
+
+    function resolveLanguage() {
+      var requested = new URLSearchParams(window.location.search).get("lang");
+      if (requested === "ja" || requested === "en") return requested;
+      var preferred = navigator.languages || [navigator.language || "ja"];
+      for (var i = 0; i < preferred.length; i += 1) {
+        if (/^ja\b/i.test(preferred[i])) return "ja";
+        if (/^en\b/i.test(preferred[i])) return "en";
+      }
+      return "ja";
+    }
+
+    function setText(id, value) {
+      var node = document.getElementById(id);
+      if (node) node.textContent = value;
+    }
+
+    var lang = resolveLanguage();
+    var copy = COPY[lang];
+
+    document.documentElement.lang = lang;
+    document.title = copy.title;
+    var description = document.querySelector('meta[name="description"]');
+    if (description) description.setAttribute("content", copy.description);
+
+    setText("tagline", copy.tagline);
+    setText("redirecting", copy.redirecting);
+    setText("app-store-label", copy.appStore);
+    setText("play-store-label", copy.playStore);
+    setText("copyright", copy.copyright);
+
+    var privacy = document.getElementById("privacy-link");
+    privacy.textContent = copy.privacy;
+    privacy.href = copy.privacyHref;
+
+    var terms = document.getElementById("terms-link");
+    terms.textContent = copy.terms;
+    terms.href = copy.termsHref;
+
+    var toggle = document.getElementById("lang-switch");
+    toggle.querySelector("span").textContent = copy.switchLabel;
+    toggle.href = copy.switchHref;
+    toggle.hreflang = copy.switchLang;
+
     var ua = navigator.userAgent || "";
     var isAndroid = /Android/i.test(ua);
     var isIos = /iPhone|iPad|iPod/i.test(ua)
