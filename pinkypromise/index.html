@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PinkyPromise</title>
+<meta name="description" content="ゆびきりを証書にして残す、端末内で完結するアプリ。App Store と Google Play で配信中。">
+<meta name="apple-itunes-app" content="app-id=6805258510">
+<meta property="og:type" content="website">
+<meta property="og:title" content="PinkyPromise">
+<meta property="og:description" content="ゆびきりを証書にして残す、端末内で完結するアプリ。">
+<meta property="og:url" content="https://bigpeach-labs.github.io/pinkypromise/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --canvas: #FFF9F0;
+    --paper: #FFFFFF;
+    --ink: #3B2F2C;
+    --ink-faint: #7B6B63;
+    --line: #F0E4D8;
+    --rose: #D2325F;
+    --navy: #5A3F52;
+    --ui: "Zen Kaku Gothic New", -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+    --serif: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--canvas);
+    color: var(--ink);
+    font-family: var(--ui);
+    line-height: 1.85;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  .wrap {
+    width: 100%;
+    max-width: 480px;
+    padding: 56px 20px;
+    text-align: center;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: 30px;
+    letter-spacing: 0.08em;
+    margin: 0 0 6px;
+  }
+
+  .tagline {
+    margin: 0 0 36px;
+    color: var(--ink-faint);
+    font-size: 14px;
+  }
+
+  .stores {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 0 0 28px;
+  }
+
+  .store {
+    display: block;
+    padding: 15px 20px;
+    border-radius: 16px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 700;
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+
+  .store:hover { border-color: var(--rose); color: var(--rose); }
+
+  .store .platform {
+    display: block;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .redirecting {
+    margin: 0 0 20px;
+    font-size: 13px;
+    color: var(--ink-faint);
+  }
+
+  .redirecting[hidden] { display: none; }
+
+  .docs {
+    margin: 0;
+    padding: 28px 0 0;
+    list-style: none;
+    border-top: 1px solid var(--line);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px 20px;
+  }
+
+  .docs a {
+    color: var(--ink-faint);
+    font-size: 13px;
+    text-decoration: none;
+  }
+
+  .docs a:hover { color: var(--rose); }
+
+  footer {
+    margin-top: 40px;
+    color: var(--ink-faint);
+    font-size: 13px;
+  }
+
+  footer a { color: var(--ink-faint); }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 40px 18px; }
+    h1 { font-size: 25px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>PinkyPromise</h1>
+  <p class="tagline">ゆびきりを証書にして残す、端末内で完結するアプリ。</p>
+
+  <p class="redirecting" id="redirecting" hidden>ストアを開いています…</p>
+
+  <div class="stores">
+    <a class="store" href="https://apps.apple.com/app/id6805258510" id="app-store">
+      <span class="platform">iPhone / iPad</span>
+      App Store で入手
+    </a>
+    <a class="store" href="https://play.google.com/store/apps/details?id=com.bigpeach.pinkypromise" id="play-store">
+      <span class="platform">Android</span>
+      Google Play で入手
+    </a>
+  </div>
+
+  <ul class="docs">
+    <li><a href="/pinkypromise/privacy/">プライバシーポリシー</a></li>
+    <li><a href="/pinkypromise/terms/">利用規約</a></li>
+    <li><a href="/">BigPeach</a></li>
+  </ul>
+
+  <footer>
+    <p>© 2026 株式会社Mouette<br>
+    <a href="mailto:support@mouette.co.jp">support@mouette.co.jp</a></p>
+  </footer>
+
+</div>
+<script>
+  (function () {
+    var ua = navigator.userAgent || "";
+    var isAndroid = /Android/i.test(ua);
+    var isIos = /iPhone|iPad|iPod/i.test(ua)
+      || (/Macintosh/i.test(ua) && navigator.maxTouchPoints > 1);
+    if (!isAndroid && !isIos) return;
+
+    var target = document.getElementById(isAndroid ? "play-store" : "app-store").href;
+    document.getElementById("redirecting").hidden = false;
+    window.setTimeout(function () {
+      window.location.replace(target);
+    }, 400);
+  })();
+</script>
+</body>
+</html>
