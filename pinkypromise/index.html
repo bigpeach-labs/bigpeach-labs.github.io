@@ -231,12 +231,12 @@
     function resolveLanguage() {
       var requested = new URLSearchParams(window.location.search).get("lang");
       if (requested === "ja" || requested === "en") return requested;
-      var preferred = navigator.languages || [navigator.language || "ja"];
+      var preferred = navigator.languages || [navigator.language || "en"];
       for (var i = 0; i < preferred.length; i += 1) {
         if (/^ja\b/i.test(preferred[i])) return "ja";
         if (/^en\b/i.test(preferred[i])) return "en";
       }
-      return "ja";
+      return "en";
     }
 
     function setText(id, value) {
