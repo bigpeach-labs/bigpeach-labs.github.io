@@ -193,6 +193,10 @@
 </div>
 <script>
   (function () {
+    // App Store Connect でキャンペーンリンクを作ると出る pt。空のあいだは App Store 側に経路を付けない。
+    var APP_STORE_PROVIDER_TOKEN = "";
+    var CAMPAIGN_PATTERN = /^[A-Za-z0-9_-]{1,40}$/;
+
     var COPY = {
       ja: {
         title: "PinkyPromise",
@@ -244,6 +248,25 @@
       if (node) node.textContent = value;
     }
 
+    function tagStoreLinks() {
+      var campaign = new URLSearchParams(window.location.search).get("c");
+      if (!campaign || !CAMPAIGN_PATTERN.test(campaign)) return;
+
+      if (APP_STORE_PROVIDER_TOKEN) {
+        var appStore = document.getElementById("app-store");
+        var appStoreUrl = new URL(appStore.href);
+        appStoreUrl.searchParams.set("pt", APP_STORE_PROVIDER_TOKEN);
+        appStoreUrl.searchParams.set("ct", campaign);
+        appStoreUrl.searchParams.set("mt", "8");
+        appStore.href = appStoreUrl.toString();
+      }
+
+      var playStore = document.getElementById("play-store");
+      var playStoreUrl = new URL(playStore.href);
+      playStoreUrl.searchParams.set("referrer", "utm_source=" + campaign + "&utm_campaign=" + campaign);
+      playStore.href = playStoreUrl.toString();
+    }
+
     var lang = resolveLanguage();
     var copy = COPY[lang];
 
@@ -270,6 +293,8 @@
     toggle.querySelector("span").textContent = copy.switchLabel;
     toggle.href = copy.switchHref;
     toggle.hreflang = copy.switchLang;
+
+    tagStoreLinks();
 
     var ua = navigator.userAgent || "";
     var isAndroid = /Android/i.test(ua);
